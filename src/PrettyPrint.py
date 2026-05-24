@@ -15,7 +15,7 @@ class PrettyDatePrint:
 
         for i in range(len(string)):
             char = string[i]
-            print(f'char: {char}, index: {i}')
+            #print(f'char: {char}, index: {i}')
             if char in self.font:
                 charFont = self.font[char]
             else:
@@ -45,7 +45,7 @@ class PrettyDatePrint:
 
     def prettyDatePrint(self, day, month, year, sep="."):
         dateString = sep.join([f'{day:02d}', f'{month:02d}', f'{year:04d}'])
-        print(dateString)
+        #print(dateString)
         outLines = self.applyFont(dateString)
         outString = self.boxBuilder(outLines, hSpacing=2, vSpacing=0)
-        print(outString) 
+        return outString 
