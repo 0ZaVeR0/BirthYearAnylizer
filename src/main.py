@@ -12,7 +12,11 @@ def main():
         except ValueError as e:
             print(str(e))
     out = PrettyDatePrint("fonts/starFont.json")
-    out.prettyDatePrint(date.day, date.month, date.year)
+    print(out.prettyDatePrint(date.day, date.month, date.year))
+    print(date.getDayOfWeek())
+    print(date.checkLeapYear())
+    print(date.getAge())
+
 
 if __name__ == "__main__":
     main()

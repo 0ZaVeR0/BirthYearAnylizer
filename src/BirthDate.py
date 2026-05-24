@@ -1,6 +1,7 @@
+import datetime
+
 class BirthDate:
     def __init__(self, day = 1, month = 1, year = 2000) -> None:
-        print(f'new {self.__class__.__name__} obj')
         self.setDateFromInts(day, month, year)
     
     def setDateFromInts(self, newDay: int, newMonth: int, newYear: int) -> None:
@@ -36,9 +37,18 @@ class BirthDate:
             return True
         return False
     
-    def getDayOfWeek(self) -> int:
-        return 1
+    def getDayOfWeek(self):
+        weekdays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
+        date = datetime.date(self.year, self.month, self.day)
+        return weekdays[date.weekday()]
 
     def getAge(self) -> int:
-        return 1
+        today = datetime.date.today()
+        age = today.year - self.year
+        if (today.month, today.day) < (self.month, self.day):
+            age -= 1
+        return age if age >= 0 else -1
+    
+    def checkLeapYear(self) -> bool:
+        return self.isLeepYear(self.year)
 
