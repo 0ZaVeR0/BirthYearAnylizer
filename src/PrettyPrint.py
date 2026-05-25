@@ -10,7 +10,8 @@ class PrettyDatePrint:
         self.fontSpaceWidth = self.fontFile["metadata"]["SpaceWidth"]
         self.font = self.fontFile["font"]
 
-    def applyFont(self, string):
+    def __applyFont(self, string: str) -> list[str]:
+        """Applies font to input string and returns array of lines"""
         outLines = [""] * self.fontHeight
 
         for i in range(len(string)):
@@ -26,12 +27,12 @@ class PrettyDatePrint:
             
         return outLines
         
-    def boxBuilder(self,lines, hSpacing=1, vSpacing=1):
+    def __boxBuilder(self, lines: list[str], hSpacing=1, vSpacing=1) -> str:
+        """Builds box around lines with specified spacings. Returns joined string"""
         maxLineLength = max(len(line) for line in lines)
         lineWidth = maxLineLength + 2 * hSpacing
 
-        topBorder = "+" + "-" * lineWidth + "+"
-        bottomBorder = topBorder
+        hBorder = "+" + "-" * lineWidth + "+"
 
         middlePart = []
         middlePart += ["|" + " " * lineWidth + "|"] * vSpacing
@@ -40,12 +41,13 @@ class PrettyDatePrint:
             middlePart.append(paddedLine)
         middlePart += ["|" + " " * lineWidth + "|"] * vSpacing
 
-        box = [topBorder] + middlePart + [bottomBorder]
+        box = [hBorder] + middlePart + [hBorder]
         return "\n".join(box)
 
-    def prettyDatePrint(self, day, month, year, sep="."):
+    def prettyDatePrint(self, day: int, month: int, year: int, sep=".", boxHSpacing=2, boxVSpacing=0) -> str:
+        """Returns date with font applied and box around it"""
         dateString = sep.join([f'{day:02d}', f'{month:02d}', f'{year:04d}'])
         #print(dateString)
-        outLines = self.applyFont(dateString)
-        outString = self.boxBuilder(outLines, hSpacing=2, vSpacing=0)
+        outLines = self.__applyFont(dateString)
+        outString = self.__boxBuilder(outLines, boxHSpacing, boxVSpacing)
         return outString 
